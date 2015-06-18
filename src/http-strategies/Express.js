@@ -169,5 +169,5 @@ function buildRequestObject(req, allowTunneling) {
 
 function hasBody(req) {
   return req.headers["transfer-encoding"] !== undefined
-    || parseInt(req.headers["content-length"]) > 0;
+    || (!isNaN(req.headers["content-length"]) && parseInt(req.headers["content-length"]) > 0);
 }
