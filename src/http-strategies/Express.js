@@ -155,7 +155,7 @@ function buildRequestObject(req, allowTunneling) {
           catch (error) {
             let parseErr = new Error("Request contains invalid JSON.");
             parseErr.status = error.statusCode = 400;
-            reject(err);
+            reject(parseErr);
           }
         }
       });
@@ -169,5 +169,5 @@ function buildRequestObject(req, allowTunneling) {
 
 function hasBody(req) {
   return req.headers["transfer-encoding"] !== undefined
-    || !isNaN(req.headers["content-length"]);
+    || parseInt(req.headers["content-length"]) > 0;
 }
